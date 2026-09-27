@@ -1163,13 +1163,11 @@ app.get("/api/reports/today", (req, res) => {
   });
 });
 // doanh thu theo ngày
+// doanh thu theo ngày
 app.get("/api/reports/revenue-by-day", (req, res) => {
   const sql = `
     SELECT
-      DATE_FORMAT(
-        CONVERT_TZ(created_at, '+00:00', '+07:00'),
-        '%Y-%m-%d'
-      ) AS date,
+      DATE_FORMAT(created_at, '%Y-%m-%d') AS date,
 
       COUNT(*) AS total_orders,
 
@@ -1183,10 +1181,7 @@ app.get("/api/reports/revenue-by-day", (req, res) => {
     WHERE status = 'completed'
 
     GROUP BY
-      DATE_FORMAT(
-        CONVERT_TZ(created_at, '+00:00', '+07:00'),
-        '%Y-%m-%d'
-      )
+      DATE_FORMAT(created_at, '%Y-%m-%d')
 
     ORDER BY date ASC
   `;
